@@ -4,12 +4,22 @@ public class NDFANode {
 
         private char charToAccept;
         private NDFANode nextNDFANode;
-        private boolean finalNode;
+        private boolean startNode;
+        private boolean stopNode;
 
-        public NDFANode(char charToAccept, NDFANode nextNDFANode, boolean finalNode) {
+        public NDFANode(char charToAccept, NDFANode nextNDFANode, boolean stopNode) {
                 this.charToAccept = charToAccept;
                 this.nextNDFANode = nextNDFANode;
-                this.finalNode = finalNode;
+                this.stopNode = stopNode;
+        }
+
+        public NDFANode(char charToAccept, boolean stopNode) {
+                this.charToAccept = charToAccept;
+                this.stopNode = stopNode;
+        }
+
+        public NDFANode(char charToAccept) {
+                this.charToAccept = charToAccept;
         }
 
         public char getCharToAccept() {
@@ -20,7 +30,15 @@ public class NDFANode {
                 return nextNDFANode;
         }
 
-        public boolean isFinalNode() {
-                return finalNode;
+        public boolean isStopNode() {
+                return stopNode;
+        }
+
+        public void setNextNDFANode(NDFANode nextNDFANode) {
+                this.nextNDFANode = nextNDFANode;
+        }
+
+        public void setStartNode(boolean startNode) {
+                this.startNode = startNode;
         }
 }

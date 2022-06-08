@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.automata.NDFA;
+import com.company.automata.NDFANode;
 
 public class RegexConverter {
 
@@ -13,8 +14,6 @@ public class RegexConverter {
         //Starts with ^
         //ends with $
         // contains /test/
-//        NDFA ndfa = new NDFA();
-
         String startsWith = "";
         String contains = "";
         String endsWith = "";
@@ -35,18 +34,36 @@ public class RegexConverter {
             endsWith = regex.substring(regex.indexOf("$") + 1);
         }
 
-//        if (regex.contains("^") || regex.contains("/")) {
-//            startsWith = regex.substring(0, regex.indexOf("/"));
-//        } if (regex.contains("/")){
-//            contains = regex.substring(regex.lastIndexOf("/"), regex.lastIndexOf("/"));
-//        } if (regex.contains("$")){
-//            endsWith = regex.substring(regex.lastIndexOf("$"));
-//        }
+        System.out.println(startsWith + " // " + contains + " // " + endsWith);
 
-            System.out.println(startsWith + " // " + contains + " // " + endsWith);
+//        NDFANode initialNode = new NDFANode(startsWith.charAt(0), false);
+//        NDFA ndfa = new NDFA(initialNode);
+//
+        if(startsWith != ""){
 
-            // return ndfa;
+        }if (contains != ""){
+
+        }if (endsWith != ""){
+
+        }
+
+        // return ndfa;
+        }
+
+        public void addStartNodes(NDFA ndfa, String startString){
+            if (ndfa.getAutomata().isEmpty()){
+                NDFANode initalNode = new NDFANode(startString.charAt(0));
+                initalNode.setStartNode(true);
+                ndfa.getAutomata().add(initalNode);
+            }
+
+            for(int i = 1; i < startString.length(); i ++){
+                NDFANode
+            }
+
         }
     }
+
+
 
 
