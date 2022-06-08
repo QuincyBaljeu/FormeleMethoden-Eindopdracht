@@ -11,7 +11,7 @@ public class Application {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Dit werkt");
 
-        converter.convertToNDFA("^test/asd/");
+        converter.convertToNDFA("^test/asd/$yoo");
 //        String input = scanner.nextLine();
 //        if (benzyl.assertRegex(input)){
 //            System.out.println("Dit is een benzyl medic.");

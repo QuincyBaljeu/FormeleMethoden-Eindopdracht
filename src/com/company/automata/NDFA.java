@@ -3,14 +3,15 @@ package com.company.automata;
 import java.util.ArrayList;
 
 public class NDFA {
-    private ArrayList<Node> automata = new ArrayList<>();
+    private ArrayList<NDFANode> automata = new ArrayList<>();
+    private NDFANode initalNode;
 
-    public NDFA(){
-
+    public NDFA(NDFANode initialNode){
+        this.initalNode = initialNode;
     }
 
-    public void addNode(Node node){
-        this.automata.add(node);
+    public void addNode(NDFANode NDFANode){
+        this.automata.add(NDFANode);
     }
 
 
