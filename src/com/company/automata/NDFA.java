@@ -1,15 +1,14 @@
 package com.company.automata;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class NDFA {
     private List<NDFANode> automata = new LinkedList<>();
-    private NDFANode initalNode;
+    private NDFANode initialNode;
 
     public NDFA(NDFANode initialNode){
-        this.initalNode = initialNode;
+        this.initialNode = initialNode;
     }
 
     public NDFA() {
@@ -27,11 +26,15 @@ public class NDFA {
         this.automata = automata;
     }
 
-    public NDFANode getInitalNode() {
-        return initalNode;
+    public NDFANode getInitialNode() {
+        return initialNode;
     }
 
-    public void setInitalNode(NDFANode initalNode) {
-        this.initalNode = initalNode;
+    public void setInitialNode(NDFANode initialNode) {
+        this.initialNode = initialNode;
+    }
+
+    public boolean check(){
+        return true;
     }
 }
