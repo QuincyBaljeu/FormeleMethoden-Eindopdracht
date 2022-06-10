@@ -3,6 +3,8 @@ package com.company;
 import com.company.automata.NDFA;
 import com.company.automata.NDFANode;
 
+import java.util.ArrayList;
+
 public class RegexConverter {
 
     public RegexConverter() {
@@ -19,9 +21,9 @@ public class RegexConverter {
         String contains = "";
         String endsWith = "";
 
-        if(regex.contains("^") || regex.contains("/")){
+        if(regex.contains("^") && regex.contains("/")){
             startsWith = regex.substring(regex.indexOf("^") + 1, regex.indexOf("/"));
-        } else if (regex.contains("^") || regex.contains("$")) {
+        } else if (regex.contains("^") && regex.contains("$")) {
             startsWith = regex.substring(regex.indexOf("^") + 1, regex.indexOf("$"));
         } else {
             startsWith = regex.substring(regex.indexOf("^") + 1);
@@ -41,39 +43,45 @@ public class RegexConverter {
        NDFA ndfaToReturn = new NDFA();
 //
         if(startsWith != ""){
+            System.out.println("Hier komt ie nog");
             addStartNodes(ndfaToReturn, startsWith);
-
         }if (contains != ""){
-
+            addContainsNodes(ndfaToReturn, contains);
         }if (endsWith != ""){
-
+            addEndNode(ndfaToReturn, endsWith);
         }
 
             return ndfaToReturn;
         }
 
         public void addStartNodes(NDFA ndfa, String startString){
-            if (ndfa.getAutomata().isEmpty()){
-                NDFANode initalNode = new NDFANode(startString.charAt(0));
-                initalNode.setStartNode(true);
-                ndfa.getAutomata().add(initalNode);
-            }
+        NDFANode initialStartNode = new NDFANode(startString.charAt(0));
+        initialStartNode.setStartNode(true);
+        ndfa.getAutomata().add(initialStartNode);
 
-            for(int i = 0; i < startString.length(); i ++){
-//                if(i == startString.length()){
-//                    NDFANode newNode = new NDFANode(startString.charAt(i));
-//                    newNode.setStopNode(true);
-//                    newNode.toString();
-//                } else {
-//                    NDFANode newNode = new NDFANode(startString.charAt(i+1));
-//                    ndfa.getAutomata().add(newNode);
-//                    ndfa.getAutomata().get(i).setNextNDFANode(newNode);
-//                }
-//                System.out.println(i);
+        //starts at one to compensate for manual adding of first node
+        for (int i = 1; i < startString.length(); i++){
+            NDFANode newNode = new NDFANode(startString.charAt(i));
+            System.out.println(newNode.toString());
+            ndfa.getAutomata().get(i - 1).addTransition(newNode);
+            ndfa.getAutomata().add(newNode);
+        }
 
+        //PRint
+        for (NDFANode node : ndfa.getAutomata()){
+//            System.out.println(node.toString());
+            System.out.println(node.getCharToAccept() + "\n");
+            for(NDFANode transition : node.getTransitions()){
+                System.out.println(transition.toString());
+                }
             }
+        }
+
+        public void addContainsNodes(NDFA ndfa, String containsString){
 
         }
+
+        public void addEndNode(NDFA ndfa, String endString){}
     }
 
 

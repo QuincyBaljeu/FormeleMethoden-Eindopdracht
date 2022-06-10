@@ -21,7 +21,7 @@ public class Application {
         boolean running = true;
 
         while(running){
-            System.out.println("Options: \n 1. Check medicine \n 2. New regex");
+            System.out.println("Options: \n 1. Check medicine \n 2. New regex \n 3. Run NDFA \n 4. Run NFA \n 5. Quit");
             userInput = scanner.nextLine();
 //            System.out.println("Userinput: " + userInput);
             switch (userInput){
@@ -40,6 +40,14 @@ public class Application {
 //                    System.out.println(inputInfo);
                     regexMap.put(inputRegex, inputInfo);
                     break;
+                case "3" :
+                    converter.convertToNDFA("^benzyl");
+                    break;
+                case "4" :
+                    break;
+                case "5":
+                    running = false;
+                    break;
             }
         }
     }
@@ -55,5 +63,12 @@ public class Application {
         }
 
         return prescription;
+    }
+
+    private void getTestData(){
+        regexMap.put("$zepam", "Dit middel bevat een benzodiazepine \n" +
+                "Dit middel kan spierontspannend/rustgevend werken \n" +
+                "Dit middel kan verslavend zijn");
+        System.out.println("test data added");
     }
 }
