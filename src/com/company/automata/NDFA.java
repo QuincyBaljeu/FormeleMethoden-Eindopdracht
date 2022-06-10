@@ -34,7 +34,23 @@ public class NDFA {
         this.initialNode = initialNode;
     }
 
-    public boolean check(){
+    @Override
+    public String toString() {
+        return "NDFA{" +
+                "automata=" + automata +
+                ", initialNode=" + initialNode +
+                '}';
+    }
+
+    public boolean check(String stringToCheck){
+//        System.out.println("Checking");
+//        for (char charToCheck : stringToCheck.toCharArray()){
+//            for(NDFANode node : automata){
+//                for (NDFANode acceptor : node.getTransitions()){
+//                    acceptor.getCharToAccept();
+//                }
+//            }
+//        }
         return true;
     }
 }

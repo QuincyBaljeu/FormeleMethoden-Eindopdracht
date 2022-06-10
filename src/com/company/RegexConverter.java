@@ -62,20 +62,20 @@ public class RegexConverter {
         //starts at one to compensate for manual adding of first node
         for (int i = 1; i < startString.length(); i++){
             NDFANode newNode = new NDFANode(startString.charAt(i));
-            System.out.println(newNode.toString());
+            //System.out.println(newNode.toString());
             ndfa.getAutomata().get(i - 1).addTransition(newNode);
             ndfa.getAutomata().add(newNode);
         }
 
-        //PRint
-        for (NDFANode node : ndfa.getAutomata()){
+        //Print
+//        for (NDFANode node : ndfa.getAutomata()){
 //            System.out.println(node.toString());
-            System.out.println(node.getCharToAccept() + "\n");
-            for(NDFANode transition : node.getTransitions()){
-                System.out.println(transition.toString());
-                }
-            }
-        }
+//            System.out.println(node.getCharToAccept() + "\n");
+//            for(NDFANode transition : node.getTransitions()){
+//                System.out.println(transition.toString());
+//                }
+//            }
+       }
 
         public void addContainsNodes(NDFA ndfa, String containsString){
 

@@ -41,7 +41,9 @@ public class Application {
                     regexMap.put(inputRegex, inputInfo);
                     break;
                 case "3" :
-                    converter.convertToNDFA("^benzyl");
+                    NDFA ndfaTest = converter.convertToNDFA("^benzyl");
+                    System.out.println(ndfaTest.toString());
+                    ndfaTest.check("benzyl");
                     break;
                 case "4" :
                     break;
