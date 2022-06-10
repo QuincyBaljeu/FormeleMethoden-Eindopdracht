@@ -9,7 +9,8 @@ public class RegexConverter {
 
     }
 
-    public void convertToNDFA(String regex) {
+    //set to NDFA
+    public NDFA convertToNDFA(String regex) {
 
         //Starts with ^
         //ends with $
@@ -37,9 +38,10 @@ public class RegexConverter {
         System.out.println(startsWith + " // " + contains + " // " + endsWith);
 
 //        NDFANode initialNode = new NDFANode(startsWith.charAt(0), false);
-//        NDFA ndfa = new NDFA(initialNode);
+       NDFA ndfaToReturn = new NDFA();
 //
         if(startsWith != ""){
+            addStartNodes(ndfaToReturn, startsWith);
 
         }if (contains != ""){
 
@@ -47,7 +49,7 @@ public class RegexConverter {
 
         }
 
-        // return ndfa;
+            return ndfaToReturn;
         }
 
         public void addStartNodes(NDFA ndfa, String startString){
@@ -57,8 +59,18 @@ public class RegexConverter {
                 ndfa.getAutomata().add(initalNode);
             }
 
-            for(int i = 1; i < startString.length(); i ++){
-                NDFANode
+            for(int i = 0; i < startString.length(); i ++){
+//                if(i == startString.length()){
+//                    NDFANode newNode = new NDFANode(startString.charAt(i));
+//                    newNode.setStopNode(true);
+//                    newNode.toString();
+//                } else {
+//                    NDFANode newNode = new NDFANode(startString.charAt(i+1));
+//                    ndfa.getAutomata().add(newNode);
+//                    ndfa.getAutomata().get(i).setNextNDFANode(newNode);
+//                }
+//                System.out.println(i);
+
             }
 
         }

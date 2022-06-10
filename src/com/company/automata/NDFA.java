@@ -12,6 +12,9 @@ public class NDFA {
         this.initalNode = initialNode;
     }
 
+    public NDFA() {
+    }
+
     public void addNode(NDFANode NDFANode){
         this.automata.add(NDFANode);
     }

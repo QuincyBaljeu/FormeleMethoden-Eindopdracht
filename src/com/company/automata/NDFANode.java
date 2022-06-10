@@ -41,4 +41,18 @@ public class NDFANode {
         public void setStartNode(boolean startNode) {
                 this.startNode = startNode;
         }
+
+        public void setStopNode(boolean stopNode) {
+                this.stopNode = stopNode;
+        }
+
+        @Override
+        public String toString() {
+                return "NDFANode{" +
+                        "charToAccept=" + charToAccept +
+                        ", nextNDFANode=" + nextNDFANode +
+                        ", startNode=" + startNode +
+                        ", stopNode=" + stopNode +
+                        '}';
+        }
 }
