@@ -3,6 +3,7 @@ package com.company;
 import com.company.automata.NDFA;
 import com.company.automata.NDFANode;
 
+import javax.smartcardio.ATR;
 import java.util.ArrayList;
 
 public class RegexConverter {
@@ -54,54 +55,59 @@ public class RegexConverter {
         }
 
         public void addStartNodes(NDFA ndfa, String startString){
+        ArrayList<NDFANode> nodesToAdd = new ArrayList<>();
         NDFANode initialStartNode = new NDFANode(startString.charAt(0));
-        ndfa.getAutomata().add(initialStartNode);
+        nodesToAdd.add(initialStartNode);
 
         //starts at one to compensate for manual adding of first node
         for (int i = 1; i < startString.length(); i++){
             NDFANode newNode = new NDFANode(startString.charAt(i));
             //System.out.println(newNode.toString());
-            ndfa.getAutomata().get(i - 1).addTransition(newNode);
+            nodesToAdd.get(i - 1).addTransition(newNode);
             if(i == startString.length() - 1){
                newNode.addTransition(newNode);
-               ndfa.resetStopNode();
+               //ndfa.resetStopNode();
             }
-            ndfa.getAutomata().add(newNode);
+            nodesToAdd.add(newNode);
         }
+            ndfa.getAutomata().addAll(nodesToAdd);
        }
 
         public void addContainsNodes(NDFA ndfa, String containsString){
+            ArrayList<NDFANode> nodesToAdd = new ArrayList<>();
             NDFANode initialStartNode = new NDFANode(containsString.charAt(0));
             initialStartNode.addTransition(initialStartNode);
-            ndfa.getAutomata().add(initialStartNode);
-
+            nodesToAdd.add(initialStartNode);
 
             //starts at one to compensate for manual adding of first node
             for (int i = 1; i < containsString.length(); i++){
                 NDFANode newNode = new NDFANode(containsString.charAt(i));
                 //System.out.println(newNode.toString());
-                ndfa.getAutomata().get(i - 1).addTransition(newNode);
+                nodesToAdd.get(i - 1).addTransition(newNode);
                 if(i == containsString.length() - 1) {
                     newNode.addTransition(newNode);
-                    ndfa.resetStopNode();
+                    //ndfa.resetStopNode();
                 }
-                ndfa.getAutomata().add(newNode);
+                nodesToAdd.add(newNode);
             }
+            ndfa.getAutomata().addAll(nodesToAdd);
         }
 
         public void addEndNode(NDFA ndfa, String endString){
+            ArrayList<NDFANode> nodesToAdd = new ArrayList<>();
             NDFANode initialStartNode = new NDFANode(endString.charAt(0));
             initialStartNode.addTransition(initialStartNode);
-            ndfa.getAutomata().add(initialStartNode);
+            nodesToAdd.add(initialStartNode);
 
             //starts at one to compensate for manual adding of first node
             for (int i = 1; i < endString.length(); i++){
                 NDFANode newNode = new NDFANode(endString.charAt(i));
                 //System.out.println(newNode.toString());
-                ndfa.getAutomata().get(i - 1).addTransition(newNode);
-                ndfa.getAutomata().add(newNode);
+                nodesToAdd.get(i - 1).addTransition(newNode);
+                nodesToAdd.add(newNode);
             }
-            ndfa.resetStopNode();
+            ndfa.getAutomata().addAll(nodesToAdd);
+            //ndfa.resetStopNode();
         }
     }
 
