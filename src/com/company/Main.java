@@ -12,7 +12,7 @@ public class Main {
 
         //application.run();
 
-        NDFA ndfaTest = converter.convertToNDFA("^cool/test/$end");
+        NDFA ndfaTest = converter.convertToNDFA("^cool/test/");
         System.out.println(ndfaTest.toString());
         ndfaTest.check("benzyl");
     }

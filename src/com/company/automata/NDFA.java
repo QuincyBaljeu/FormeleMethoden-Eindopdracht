@@ -62,10 +62,14 @@ public class NDFA {
         return false;
     }
 
-//    public void resetStopNode(){
-//        for (NDFANode node : automata){
-//          node.setStopNode(false);
-//        }
-//        automata.get(automata.size()-1).setStopNode(true);
-//    }
+    public void resetStopNode(){
+        if(!automata.isEmpty()){
+            for (NDFANode node : automata){
+                node.setStopNode(false);
+            }
+            automata.get(automata.size()-1).setStopNode(true);
+        }
+
+
+    }
 }

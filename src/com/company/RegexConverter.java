@@ -66,11 +66,12 @@ public class RegexConverter {
             nodesToAdd.get(i - 1).addTransition(newNode);
             if(i == startString.length() - 1){
                newNode.addTransition(newNode);
-               //ndfa.resetStopNode();
+
             }
             nodesToAdd.add(newNode);
         }
             ndfa.getAutomata().addAll(nodesToAdd);
+            ndfa.resetStopNode();
        }
 
         public void addContainsNodes(NDFA ndfa, String containsString){
@@ -86,11 +87,12 @@ public class RegexConverter {
                 nodesToAdd.get(i - 1).addTransition(newNode);
                 if(i == containsString.length() - 1) {
                     newNode.addTransition(newNode);
-                    //ndfa.resetStopNode();
+
                 }
                 nodesToAdd.add(newNode);
             }
             ndfa.getAutomata().addAll(nodesToAdd);
+            ndfa.resetStopNode();
         }
 
         public void addEndNode(NDFA ndfa, String endString){
@@ -107,7 +109,7 @@ public class RegexConverter {
                 nodesToAdd.add(newNode);
             }
             ndfa.getAutomata().addAll(nodesToAdd);
-            //ndfa.resetStopNode();
+            ndfa.resetStopNode();
         }
     }
 
