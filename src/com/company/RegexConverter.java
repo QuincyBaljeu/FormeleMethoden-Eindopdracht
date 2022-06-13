@@ -21,6 +21,7 @@ public class RegexConverter {
         String contains = "";
         String endsWith = "";
 
+
         if(regex.contains("^") && regex.contains("/")){
             startsWith = regex.substring(regex.indexOf("^") + 1, regex.indexOf("/"));
         } else if (regex.contains("^") && regex.contains("$")) {
@@ -73,6 +74,7 @@ public class RegexConverter {
             NDFANode initialStartNode = new NDFANode(containsString.charAt(0));
             initialStartNode.addTransition(initialStartNode);
             ndfa.getAutomata().add(initialStartNode);
+
 
             //starts at one to compensate for manual adding of first node
             for (int i = 1; i < containsString.length(); i++){

@@ -48,7 +48,6 @@ public class NDFA {
         int i = 0;
         for (char charToCheck : stringToCheck.toCharArray()){
            for(NDFANode node : automata){
-
            }
         }
         return true;
