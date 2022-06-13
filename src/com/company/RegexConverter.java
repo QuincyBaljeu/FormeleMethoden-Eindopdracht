@@ -37,8 +37,6 @@ public class RegexConverter {
             endsWith = regex.substring(regex.indexOf("$") + 1);
         }
 
-        //System.out.println(startsWith + " // " + contains + " // " + endsWith);
-
 //        NDFANode initialNode = new NDFANode(startsWith.charAt(0), false);
        NDFA ndfaToReturn = new NDFA();
 //
@@ -99,11 +97,9 @@ public class RegexConverter {
                 NDFANode newNode = new NDFANode(endString.charAt(i));
                 //System.out.println(newNode.toString());
                 ndfa.getAutomata().get(i - 1).addTransition(newNode);
-                if(i == endString.length() - 1) {
-                    ndfa.resetStopNode();
-                }
                 ndfa.getAutomata().add(newNode);
             }
+            ndfa.resetStopNode();
         }
     }
 
