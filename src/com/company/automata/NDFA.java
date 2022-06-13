@@ -45,12 +45,28 @@ public class NDFA {
     public boolean check(String stringToCheck){
         System.out.println("Checking");
         boolean passed = false;
+        int i = 0;
         for (char charToCheck : stringToCheck.toCharArray()){
-            while(!passed){
+           for(NDFANode node : automata){
 
-
-            }
+           }
         }
         return true;
+    }
+
+    public boolean containsStopNode(){
+        for (NDFANode node : automata){
+            if (node.isStopNode()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void resetStopNode(){
+        for (NDFANode node : automata){
+          node.setStopNode(false);
+        }
+        automata.get(automata.size()-1).setStopNode(true);
     }
 }

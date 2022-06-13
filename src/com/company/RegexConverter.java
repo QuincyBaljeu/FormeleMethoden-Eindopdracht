@@ -56,7 +56,6 @@ public class RegexConverter {
 
         public void addStartNodes(NDFA ndfa, String startString){
         NDFANode initialStartNode = new NDFANode(startString.charAt(0));
-        initialStartNode.setStartNode(true);
         ndfa.getAutomata().add(initialStartNode);
 
         //starts at one to compensate for manual adding of first node
@@ -64,23 +63,17 @@ public class RegexConverter {
             NDFANode newNode = new NDFANode(startString.charAt(i));
             //System.out.println(newNode.toString());
             ndfa.getAutomata().get(i - 1).addTransition(newNode);
-            ndfa.getAutomata().add(newNode);
-
             if(i == startString.length() - 1){
-                ndfa.getAutomata().get(i-1).addTransition(ndfa.getAutomata().get(i-1));
+               newNode.addTransition(newNode);
+               ndfa.resetStopNode();
             }
+            ndfa.getAutomata().add(newNode);
         }
        }
 
         public void addContainsNodes(NDFA ndfa, String containsString){
-            if(ndfa.getAutomata().isEmpty()){
-                NDFANode initialStartNode = new NDFANode(containsString.charAt(0));
-                initialStartNode.setStartNode(true);
-                ndfa.getAutomata().add(initialStartNode);
-            } else {
-                NDFANode initialStartNode = new NDFANode(containsString.charAt(0));
-                ndfa.getAutomata().add(initialStartNode);
-            }
+            NDFANode initialStartNode = new NDFANode(containsString.charAt(0));
+            ndfa.getAutomata().add(initialStartNode);
 
             //starts at one to compensate for manual adding of first node
             for (int i = 1; i < containsString.length(); i++){
@@ -88,18 +81,17 @@ public class RegexConverter {
                 //System.out.println(newNode.toString());
                 ndfa.getAutomata().get(i - 1).addTransition(newNode);
                 ndfa.getAutomata().add(newNode);
+
+                if(i == containsString.length() - 1) {
+                    ndfa.getAutomata().get(i-1).addTransition(ndfa.getAutomata().get(i-1));
+                    ndfa.resetStopNode();
+                }
             }
         }
 
         public void addEndNode(NDFA ndfa, String endString){
-            if(ndfa.getAutomata().isEmpty()){
-                NDFANode initialStartNode = new NDFANode(endString.charAt(0));
-                initialStartNode.setStartNode(true);
-                ndfa.getAutomata().add(initialStartNode);
-            } else {
-                NDFANode initialStartNode = new NDFANode(endString.charAt(0));
-                ndfa.getAutomata().add(initialStartNode);
-            }
+            NDFANode initialStartNode = new NDFANode(endString.charAt(0));
+            ndfa.getAutomata().add(initialStartNode);
 
             //starts at one to compensate for manual adding of first node
             for (int i = 1; i < endString.length(); i++){
@@ -107,6 +99,11 @@ public class RegexConverter {
                 //System.out.println(newNode.toString());
                 ndfa.getAutomata().get(i - 1).addTransition(newNode);
                 ndfa.getAutomata().add(newNode);
+
+                if(i == endString.length() - 1) {
+
+                    ndfa.resetStopNode();
+                }
             }
 
         }
