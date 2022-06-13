@@ -53,7 +53,6 @@ public class NDFANode {
         public String toString() {
                 return "NDFANode{" +
                         "charToAccept=" + charToAccept +
-                        ", transitions=" + transitions +
                         ", startNode=" + startNode +
                         ", stopNode=" + stopNode +
                         '}';

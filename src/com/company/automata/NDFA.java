@@ -43,14 +43,14 @@ public class NDFA {
     }
 
     public boolean check(String stringToCheck){
-//        System.out.println("Checking");
-//        for (char charToCheck : stringToCheck.toCharArray()){
-//            for(NDFANode node : automata){
-//                for (NDFANode acceptor : node.getTransitions()){
-//                    acceptor.getCharToAccept();
-//                }
-//            }
-//        }
+        System.out.println("Checking");
+        boolean passed = false;
+        for (char charToCheck : stringToCheck.toCharArray()){
+            while(!passed){
+
+
+            }
+        }
         return true;
     }
 }
