@@ -66,7 +66,6 @@ public class RegexConverter {
             nodesToAdd.get(i - 1).addTransition(newNode);
             if(i == startString.length() - 1){
                newNode.addTransition(newNode);
-
             }
             nodesToAdd.add(newNode);
         }
@@ -79,6 +78,10 @@ public class RegexConverter {
             NDFANode initialStartNode = new NDFANode(containsString.charAt(0));
             initialStartNode.addTransition(initialStartNode);
             nodesToAdd.add(initialStartNode);
+
+            if(!ndfa.getAutomata().isEmpty()){
+                ndfa.getAutomata().get(ndfa.getAutomata().size()-1).addTransition(initialStartNode);
+            }
 
             //starts at one to compensate for manual adding of first node
             for (int i = 1; i < containsString.length(); i++){
@@ -100,6 +103,10 @@ public class RegexConverter {
             NDFANode initialStartNode = new NDFANode(endString.charAt(0));
             initialStartNode.addTransition(initialStartNode);
             nodesToAdd.add(initialStartNode);
+
+            if(!ndfa.getAutomata().isEmpty()){
+                ndfa.getAutomata().get(ndfa.getAutomata().size()-1).addTransition(initialStartNode);
+            }
 
             //starts at one to compensate for manual adding of first node
             for (int i = 1; i < endString.length(); i++){
