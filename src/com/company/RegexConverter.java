@@ -39,9 +39,8 @@ public class RegexConverter {
             endsWith = regex.substring(regex.indexOf("$") + 1);
         }
 
-//        NDFANode initialNode = new NDFANode(startsWith.charAt(0), false);
-       NDFA ndfaToReturn = new NDFA();
-//
+        NDFA ndfaToReturn = new NDFA();
+
         if(startsWith != ""){
             System.out.println("Hier komt ie nog");
             addStartNodes(ndfaToReturn, startsWith);
@@ -50,7 +49,6 @@ public class RegexConverter {
         }if (endsWith != ""){
             addEndNode(ndfaToReturn, endsWith);
         }
-
             return ndfaToReturn;
         }
 

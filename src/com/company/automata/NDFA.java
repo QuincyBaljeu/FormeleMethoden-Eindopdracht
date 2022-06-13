@@ -1,5 +1,6 @@
 package com.company.automata;
 
+import javax.xml.soap.Node;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,11 +45,15 @@ public class NDFA {
 
     public boolean check(String stringToCheck){
         System.out.println("Checking");
-        boolean passed = false;
-        int i = 0;
+
         for (char charToCheck : stringToCheck.toCharArray()){
-           for(NDFANode node : automata){
-           }
+            for (NDFANode node : automata){
+                for (NDFANode transition : node.getTransitions()){
+                    if(charToCheck == transition.getCharToAccept()){
+                        System.out.println(transition.getCharToAccept());
+                    }
+                }
+            }
         }
         return true;
     }
