@@ -46,16 +46,36 @@ public class NDFA {
     public boolean check(String stringToCheck){
         System.out.println("Checking");
 
-        for (char charToCheck : stringToCheck.toCharArray()){
-            for (NDFANode node : automata){
-                for (NDFANode transition : node.getTransitions()){
-                    if(charToCheck == transition.getCharToAccept()){
-                        System.out.println(transition.getCharToAccept());
-                    }
+        int automataIterator = 0;
+
+        //Check initial node
+        if(stringToCheck.charAt(0) != automata.get(0).getCharToAccept()){
+            return false;
+        }
+
+        for(int i = 1; i < stringToCheck.length(); i++){
+            for(NDFANode transition : automata.get(automataIterator).getTransitions()){
+                if(transition.isStopNode()){
+                    return true;
+                }
+                if(stringToCheck.charAt(i) == transition.getCharToAccept()){
+                        automataIterator++;
                 }
             }
         }
-        return true;
+        return false;
+
+//        return false;
+//        for (char charToCheck : stringToCheck.toCharArray()){
+//            for (NDFANode node : automata){
+//                for (NDFANode transition : node.getTransitions()){
+//                    if(charToCheck == transition.getCharToAccept()){
+//                        System.out.println(transition.getCharToAccept());
+//                    }
+//                }
+//            }
+//        }
+//        return true;
     }
 
     public boolean containsStopNode(){
