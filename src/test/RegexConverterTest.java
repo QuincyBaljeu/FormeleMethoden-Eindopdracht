@@ -2,7 +2,7 @@ package test;
 
 import com.company.RegexConverter;
 import com.company.automata.NDFA;
-import com.company.automata.NDFANode;
+import com.company.automata.Node;
 import org.junit.jupiter.api.Test;
 
 
@@ -18,10 +18,10 @@ class RegexConverterTest {
         RegexConverter converter = new RegexConverter();
         converter.addStartNodes(testNdfa, "abbc");
 
-        NDFANode a = new NDFANode('a');
-        NDFANode b = new NDFANode('b');
-        NDFANode b2 = new NDFANode('b');
-        NDFANode c = new NDFANode('c');
+        Node a = new Node('a');
+        Node b = new Node('b');
+        Node b2 = new Node('b');
+        Node c = new Node('c');
 
         a.addTransition(b);
         b.addTransition(b2);

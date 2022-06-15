@@ -1,37 +1,39 @@
 package com.company.automata;
 
-import javax.xml.soap.Node;
 import java.util.LinkedList;
 import java.util.List;
 
 public class NDFA {
-    private List<NDFANode> automata = new LinkedList<>();
-    private NDFANode initialNode;
+    private List<Node> automata = new LinkedList<>();
+    private Node initialNode;
+    private boolean isDFA;
 
-    public NDFA(NDFANode initialNode){
+    public NDFA(Node initialNode){
         this.initialNode = initialNode;
+        this.isDFA = false;
     }
 
     public NDFA() {
+        this.isDFA = false;
     }
 
-    public void addNode(NDFANode NDFANode){
-        this.automata.add(NDFANode);
+    public void addNode(Node Node){
+        this.automata.add(Node);
     }
 
-    public List<NDFANode> getAutomata() {
+    public List<Node> getAutomata() {
         return automata;
     }
 
-    public void setAutomata(List<NDFANode> automata) {
+    public void setAutomata(List<Node> automata) {
         this.automata = automata;
     }
 
-    public NDFANode getInitialNode() {
+    public Node getInitialNode() {
         return initialNode;
     }
 
-    public void setInitialNode(NDFANode initialNode) {
+    public void setInitialNode(Node initialNode) {
         this.initialNode = initialNode;
     }
 
@@ -54,7 +56,7 @@ public class NDFA {
         }
 
         for(int i = 1; i < stringToCheck.length(); i++){
-            for(NDFANode transition : automata.get(automataIterator).getTransitions()){
+            for(Node transition : automata.get(automataIterator).getTransitions()){
                 if(transition.isStopNode()){
                     return true;
                 }
@@ -64,22 +66,10 @@ public class NDFA {
             }
         }
         return false;
-
-//        return false;
-//        for (char charToCheck : stringToCheck.toCharArray()){
-//            for (NDFANode node : automata){
-//                for (NDFANode transition : node.getTransitions()){
-//                    if(charToCheck == transition.getCharToAccept()){
-//                        System.out.println(transition.getCharToAccept());
-//                    }
-//                }
-//            }
-//        }
-//        return true;
     }
 
     public boolean containsStopNode(){
-        for (NDFANode node : automata){
+        for (Node node : automata){
             if (node.isStopNode()){
                 return true;
             }
@@ -89,12 +79,26 @@ public class NDFA {
 
     public void resetStopNode(){
         if(!automata.isEmpty()){
-            for (NDFANode node : automata){
+            for (Node node : automata){
                 node.setStopNode(false);
             }
             automata.get(automata.size()-1).setStopNode(true);
         }
+    }
 
+    public void convertToDFA(String alphabet){
 
+        for (char fuikChar : alphabet.toCharArray()) {
+
+            Node fuikNode = new Node(fuikChar);
+            fuikNode.addTransition(fuikNode);
+
+            for (Node node : this.automata) {
+                if (!node.containsTransition(fuikChar)) {
+                    node.addTransition(fuikNode);
+                }
+            }
+        }
+        this.isDFA = true;
     }
 }

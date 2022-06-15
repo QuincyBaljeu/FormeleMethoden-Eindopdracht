@@ -1,9 +1,8 @@
 package com.company;
 
 import com.company.automata.NDFA;
-import com.company.automata.NDFANode;
+import com.company.automata.Node;
 
-import javax.smartcardio.ATR;
 import java.util.ArrayList;
 
 public class RegexConverter {
@@ -53,13 +52,13 @@ public class RegexConverter {
         }
 
         public void addStartNodes(NDFA ndfa, String startString){
-        ArrayList<NDFANode> nodesToAdd = new ArrayList<>();
-        NDFANode initialStartNode = new NDFANode(startString.charAt(0));
+        ArrayList<Node> nodesToAdd = new ArrayList<>();
+        Node initialStartNode = new Node(startString.charAt(0));
         nodesToAdd.add(initialStartNode);
 
         //starts at one to compensate for manual adding of first node
         for (int i = 1; i < startString.length(); i++){
-            NDFANode newNode = new NDFANode(startString.charAt(i));
+            Node newNode = new Node(startString.charAt(i));
             //System.out.println(newNode.toString());
             nodesToAdd.get(i - 1).addTransition(newNode);
             if(i == startString.length() - 1){
@@ -72,8 +71,8 @@ public class RegexConverter {
        }
 
         public void addContainsNodes(NDFA ndfa, String containsString){
-            ArrayList<NDFANode> nodesToAdd = new ArrayList<>();
-            NDFANode initialStartNode = new NDFANode(containsString.charAt(0));
+            ArrayList<Node> nodesToAdd = new ArrayList<>();
+            Node initialStartNode = new Node(containsString.charAt(0));
             initialStartNode.addTransition(initialStartNode);
             nodesToAdd.add(initialStartNode);
 
@@ -83,7 +82,7 @@ public class RegexConverter {
 
             //starts at one to compensate for manual adding of first node
             for (int i = 1; i < containsString.length(); i++){
-                NDFANode newNode = new NDFANode(containsString.charAt(i));
+                Node newNode = new Node(containsString.charAt(i));
                 //System.out.println(newNode.toString());
                 nodesToAdd.get(i - 1).addTransition(newNode);
                 if(i == containsString.length() - 1) {
@@ -97,8 +96,8 @@ public class RegexConverter {
         }
 
         public void addEndNode(NDFA ndfa, String endString){
-            ArrayList<NDFANode> nodesToAdd = new ArrayList<>();
-            NDFANode initialStartNode = new NDFANode(endString.charAt(0));
+            ArrayList<Node> nodesToAdd = new ArrayList<>();
+            Node initialStartNode = new Node(endString.charAt(0));
             initialStartNode.addTransition(initialStartNode);
             nodesToAdd.add(initialStartNode);
 
@@ -108,7 +107,7 @@ public class RegexConverter {
 
             //starts at one to compensate for manual adding of first node
             for (int i = 1; i < endString.length(); i++){
-                NDFANode newNode = new NDFANode(endString.charAt(i));
+                Node newNode = new Node(endString.charAt(i));
                 //System.out.println(newNode.toString());
                 nodesToAdd.get(i - 1).addTransition(newNode);
                 nodesToAdd.add(newNode);

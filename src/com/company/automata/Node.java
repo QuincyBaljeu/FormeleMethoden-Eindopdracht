@@ -3,24 +3,24 @@ package com.company.automata;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NDFANode {
+public class Node {
 
         private char charToAccept;
         private boolean isStopNode;
-        private List<NDFANode> transitions = new ArrayList<>();
+        private List<Node> transitions = new ArrayList<>();
 
-        public NDFANode(char charToAccept, List<NDFANode> transitions, boolean isStopNode) {
+        public Node(char charToAccept, List<Node> transitions, boolean isStopNode) {
                 this.charToAccept = charToAccept;
                 this.transitions = transitions;
                 this.isStopNode = isStopNode;
         }
 
-        public NDFANode(char charToAccept, boolean isStopNode) {
+        public Node(char charToAccept, boolean isStopNode) {
                 this.charToAccept = charToAccept;
                 this.isStopNode = isStopNode;
         }
 
-        public NDFANode(char charToAccept) {
+        public Node(char charToAccept) {
                 this.charToAccept = charToAccept;
                 this.isStopNode = false;
         }
@@ -29,7 +29,7 @@ public class NDFANode {
                 return charToAccept;
         }
 
-        public List<NDFANode> getTransitions() {
+        public List<Node> getTransitions() {
                 return transitions;
         }
 
@@ -37,7 +37,7 @@ public class NDFANode {
                 return isStopNode;
         }
 
-        public void setTransitions(List<NDFANode> transitions) {
+        public void setTransitions(List<Node> transitions) {
                 this.transitions = transitions;
         }
 
@@ -54,11 +54,18 @@ public class NDFANode {
                         '}';
         }
 
-        public void addTransition(NDFANode node){
-//                List<NDFANode> transitions = new ArrayList<>();
-//                transitions.add(node);
-//                this.transitions = transitions;
+        public void addTransition(Node node){
                 this.transitions.add(node);
+        }
+
+        public boolean containsTransition(char c){
+
+                for (Node transition : transitions){
+                        if (transition.getCharToAccept() == c){
+                                return true;
+                        }
+                }
+                return false;
         }
 
 }

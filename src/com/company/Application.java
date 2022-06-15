@@ -1,11 +1,8 @@
 package com.company;
 
 import com.company.automata.NDFA;
-import com.company.automata.NDFANode;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 

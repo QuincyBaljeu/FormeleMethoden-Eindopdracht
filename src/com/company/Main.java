@@ -13,6 +13,7 @@ public class Main {
         //application.run();
 
         NDFA ndfaTest = converter.convertToNDFA("^benzyl/pent/$end");
+        ndfaTest.convertToDFA("abc");
         System.out.println(ndfaTest.toString());
         System.out.println(ndfaTest.check("benzylpentend"));
     }
