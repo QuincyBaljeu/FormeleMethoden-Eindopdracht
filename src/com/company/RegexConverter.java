@@ -41,7 +41,6 @@ public class RegexConverter {
         NDFA ndfaToReturn = new NDFA();
 
         if(startsWith != ""){
-            System.out.println("Hier komt ie nog");
             addStartNodes(ndfaToReturn, startsWith);
         }if (contains != ""){
             addContainsNodes(ndfaToReturn, contains);

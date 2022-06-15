@@ -101,4 +101,12 @@ public class NDFA {
         }
         this.isDFA = true;
     }
+
+    public void print(){
+      for (int i =0; i <this.automata.size(); i++){
+          System.out.println("Node: " + i);
+          this.automata.get(i).print();
+          System.out.println("");
+      }
+    }
 }

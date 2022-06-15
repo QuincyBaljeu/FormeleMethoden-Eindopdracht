@@ -2,13 +2,15 @@ package com.company;
 
 import com.company.automata.NDFA;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Application {
     RegexConverter converter = new RegexConverter();
-    HashMap<NDFA, String> ndfaMap = new HashMap<>();
+    ArrayList<NDFA> automata = new ArrayList<>();
+    HashMap<String, NDFA> automataMap = new HashMap<>();
     HashMap<String, String> regexMap = new HashMap<>();
 
     public void run(){
@@ -18,7 +20,7 @@ public class Application {
         boolean running = true;
 
         while(running){
-            System.out.println("Options: \n 1. Check medicine \n 2. New regex \n 3. Run NDFA \n 4. Run NFA \n 5. Quit");
+            System.out.println("Options: \n 1. Check medicine \n 2. New regex \n 3. Run NDFA \n 4. Run DFA \n 5. Quit");
             userInput = scanner.nextLine();
 //            System.out.println("Userinput: " + userInput);
             switch (userInput){
@@ -36,13 +38,42 @@ public class Application {
                     String inputInfo = scanner.nextLine();
 //                    System.out.println(inputInfo);
                     regexMap.put(inputRegex, inputInfo);
+                    automataMap.put(inputRegex, converter.convertToNDFA(inputRegex));
                     break;
                 case "3" :
-                    NDFA ndfaTest = converter.convertToNDFA("^benzyl");
-                    System.out.println(ndfaTest.toString());
-                    ndfaTest.check("benzyl");
+                    System.out.println("Which NDFA?");
+                    for (String regex : automataMap.keySet()){
+                        System.out.println(regex);
+                    }
+
+                    userInput = scanner.nextLine();
+                    if (!automataMap.containsKey(userInput)){
+                        System.out.println("No NDFA found");
+                    } else {
+                        automataMap.get(userInput).print();
+                    }
                     break;
                 case "4" :
+                    System.out.println("Which DFA?");
+                    for (String regex : automataMap.keySet()){
+                        System.out.println(regex);
+                    }
+
+                    userInput = scanner.nextLine();
+                    if (!automataMap.containsKey(userInput)){
+                        System.out.println("No DFA found");
+                    } else {
+                        NDFA convertedAutomata = automataMap.get(userInput);
+
+                        String alphabet = userInput;
+                        alphabet.replace("^", "");
+                        alphabet.replace("/", "");
+                        alphabet.replace("$", "");
+
+                        convertedAutomata.convertToDFA(alphabet);
+                        convertedAutomata.print();
+                    }
+
                     break;
                 case "5":
                     running = false;
@@ -63,6 +94,7 @@ public class Application {
 
         return prescription;
     }
+
 
     private void getTestData(){
         regexMap.put("$zepam", "Dit middel bevat een benzodiazepine \n" +
