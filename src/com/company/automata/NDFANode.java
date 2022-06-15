@@ -6,23 +6,23 @@ import java.util.List;
 public class NDFANode {
 
         private char charToAccept;
-        private boolean startNode;
-        private boolean stopNode;
+        private boolean isStopNode;
         private List<NDFANode> transitions = new ArrayList<>();
 
-        public NDFANode(char charToAccept, List<NDFANode> transitions, boolean stopNode) {
+        public NDFANode(char charToAccept, List<NDFANode> transitions, boolean isStopNode) {
                 this.charToAccept = charToAccept;
                 this.transitions = transitions;
-                this.stopNode = stopNode;
+                this.isStopNode = isStopNode;
         }
 
-        public NDFANode(char charToAccept, boolean stopNode) {
+        public NDFANode(char charToAccept, boolean isStopNode) {
                 this.charToAccept = charToAccept;
-                this.stopNode = stopNode;
+                this.isStopNode = isStopNode;
         }
 
         public NDFANode(char charToAccept) {
                 this.charToAccept = charToAccept;
+                this.isStopNode = false;
         }
 
         public char getCharToAccept() {
@@ -34,34 +34,31 @@ public class NDFANode {
         }
 
         public boolean isStopNode() {
-                return stopNode;
+                return isStopNode;
         }
 
         public void setTransitions(List<NDFANode> transitions) {
                 this.transitions = transitions;
         }
 
-        public void setStartNode(boolean startNode) {
-                this.startNode = startNode;
-        }
 
         public void setStopNode(boolean stopNode) {
-                this.stopNode = stopNode;
+                this.isStopNode = stopNode;
         }
 
         @Override
         public String toString() {
                 return "NDFANode{" +
                         "charToAccept=" + charToAccept +
-                        ", startNode=" + startNode +
-                        ", stopNode=" + stopNode +
+                        ", stopNode=" + isStopNode +
                         '}';
         }
 
         public void addTransition(NDFANode node){
-                List<NDFANode> transitions = new ArrayList<>();
-                transitions.add(node);
-                this.transitions = transitions;
+//                List<NDFANode> transitions = new ArrayList<>();
+//                transitions.add(node);
+//                this.transitions = transitions;
+                this.transitions.add(node);
         }
 
 }
