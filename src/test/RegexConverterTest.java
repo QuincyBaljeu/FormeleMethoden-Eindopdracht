@@ -3,6 +3,7 @@ package test;
 import com.company.RegexConverter;
 import com.company.automata.NDFA;
 import com.company.automata.Node;
+import com.sun.org.apache.regexp.internal.RE;
 import org.junit.jupiter.api.Test;
 
 
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RegexConverterTest {
 
+    //Test if addStartNodes adds correct amount of nodes
     @Test
     void addStartNodesAmount() {
         NDFA testNdfa = new NDFA();
@@ -20,6 +22,7 @@ class RegexConverterTest {
         assertEquals(testNdfa.getAutomata().size(), 4);
     }
 
+    //Test if addContainsNodes adds correct amount of nodes
     @Test
     void addContainsNodesAmount() {
         NDFA testNdfa = new NDFA();
@@ -30,6 +33,7 @@ class RegexConverterTest {
         assertEquals(testNdfa.getAutomata().size(), 4);
     }
 
+    //Test if addEndNodes contain correct amount of nodes
     @Test
     void addEndNodeAmount() {
         NDFA testNdfa = new NDFA();
@@ -40,6 +44,7 @@ class RegexConverterTest {
         assertEquals(testNdfa.getAutomata().size(), 4);
     }
 
+    //Check if final node resets properly after multiple node addings
     @Test
     void checkFinalNode(){
         NDFA testNdfa = new NDFA();
@@ -52,6 +57,7 @@ class RegexConverterTest {
         assertTrue(testNdfa.getAutomata().get(testNdfa.getAutomata().size()-1).isStopNode());
     }
 
+    //Check if correct nodes are added after dfa conversion
     @Test
     void correctDFAConversion(){
 
@@ -76,8 +82,43 @@ class RegexConverterTest {
         assertTrue(containsENode);
     }
 
+    //Check if last node of start automata contains a loop node
+    @Test
+    void startNodeLoop(){
+        NDFA testNdfa = new NDFA();
+        RegexConverter regexConverter = new RegexConverter();
 
-    //Test if start/begin/end have correct loop nodes
-    //test if start/begin/edn add correct nodes
+        regexConverter.addStartNodes(testNdfa, "ab");
 
+        assertTrue(testNdfa.getAutomata().get(1).containsTransition('b'));
+
+    }
+
+    //Test if first and last node of contains nodes have loop nodes
+    @Test
+    void containsNodeLoop(){
+        NDFA testNdfa = new NDFA();
+        RegexConverter regexConverter = new RegexConverter();
+
+        regexConverter.addContainsNodes(testNdfa, "abb");
+
+        boolean correctLoopNodes = false;
+
+        if(testNdfa.getAutomata().get(0).containsTransition('a') || testNdfa.getAutomata().get(2).containsTransition('b')){
+            correctLoopNodes = true;
+        }
+
+        assertTrue(correctLoopNodes);
+    }
+
+    //Test if first node of end nodes have loop node
+    @Test
+    void endNodeLoop(){
+        NDFA testNdfa = new NDFA();
+        RegexConverter regexConverter = new RegexConverter();
+
+        regexConverter.addEndNode(testNdfa, "ab");
+
+        assertTrue(testNdfa.getAutomata().get(0).containsTransition('a'));
+    }
 }
