@@ -10,10 +10,11 @@ public class Main {
         Application application = new Application();
         RegexConverter converter = new RegexConverter();
 
-        //application.run();
+        application.run();
 
-        NDFA ndfaTest = converter.convertToNDFA("^benzyl/pent/$end");
-        System.out.println(ndfaTest.toString());
-        System.out.println(ndfaTest.check("benzylpentend"));
+        //NDFA ndfaTest = converter.convertToNDFA("^benzyl/pent/$end");
+        //ndfaTest.convertToDFA("abc");
+        //System.out.println(ndfaTest.toString());
+        //System.out.println(ndfaTest.check("benzylpentend"));
     }
 }
