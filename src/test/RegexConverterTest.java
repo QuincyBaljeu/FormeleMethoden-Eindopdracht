@@ -65,10 +65,18 @@ class RegexConverterTest {
 
         boolean containsENode = false;
 
+        for (Node node : testNdfa.getAutomata()){
+            for (Node transition : node.getTransitions()){
+                if(transition.getCharToAccept() == 'e'){
+                    containsENode = true;
+                }
+            }
+        }
 
-
+        assertTrue(containsENode);
     }
-    //Test if DFA conversion adds correct node
+
+
     //Test if start/begin/end have correct loop nodes
     //test if start/begin/edn add correct nodes
 

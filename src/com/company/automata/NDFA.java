@@ -55,8 +55,10 @@ public class NDFA {
             return false;
         }
 
+        //Chek rest of nodes
         for(int i = 1; i < stringToCheck.length(); i++){
             for(Node transition : automata.get(automataIterator).getTransitions()){
+                //If node is stopnode, automata has reached its end
                 if(transition.isStopNode()){
                     return true;
                 }
@@ -77,6 +79,7 @@ public class NDFA {
         return false;
     }
 
+    //Reset stop node to last node in automata
     public void resetStopNode(){
         if(!automata.isEmpty()){
             for (Node node : automata){
@@ -86,8 +89,10 @@ public class NDFA {
         }
     }
 
+    //Convert NDFA to DFA
     public void convertToDFA(String alphabet){
 
+        //Add "fuik" node for eacht char in alphabet not used
         for (char fuikChar : alphabet.toCharArray()) {
 
             Node fuikNode = new Node(fuikChar);

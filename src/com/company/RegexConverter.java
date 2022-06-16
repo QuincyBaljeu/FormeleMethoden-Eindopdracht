@@ -22,6 +22,7 @@ public class RegexConverter {
         String endsWith = "";
 
 
+        //Split regex into subpart containing the "start" part...
         if(regex.contains("^") && regex.contains("/")){
             startsWith = regex.substring(regex.indexOf("^") + 1, regex.indexOf("/"));
         } else if (regex.contains("^") && regex.contains("$")) {
@@ -30,16 +31,19 @@ public class RegexConverter {
             startsWith = regex.substring(regex.indexOf("^") + 1);
         }
 
+        //Split regex into subpart containing the "contains" part..
         if(regex.contains("/")){
             contains = regex.substring(regex.indexOf("/") + 1, regex.lastIndexOf("/"));
         }
 
+        //Split regex into subpart containing the "end" part
         if (regex.contains("$")){
             endsWith = regex.substring(regex.indexOf("$") + 1);
         }
 
         NDFA ndfaToReturn = new NDFA();
 
+        //Add nodes to the automata corresponding to the available subparts
         if(startsWith != ""){
             addStartNodes(ndfaToReturn, startsWith);
         }if (contains != ""){
@@ -50,6 +54,7 @@ public class RegexConverter {
             return ndfaToReturn;
         }
 
+        //Add nodes correlating to the "start" part
         public void addStartNodes(NDFA ndfa, String startString){
         ArrayList<Node> nodesToAdd = new ArrayList<>();
         Node initialStartNode = new Node(startString.charAt(0));
@@ -69,6 +74,7 @@ public class RegexConverter {
             ndfa.resetStopNode();
        }
 
+       //Add nodes correlating to the "contains" part
         public void addContainsNodes(NDFA ndfa, String containsString){
             ArrayList<Node> nodesToAdd = new ArrayList<>();
             Node initialStartNode = new Node(containsString.charAt(0));
@@ -94,6 +100,7 @@ public class RegexConverter {
             ndfa.resetStopNode();
         }
 
+        //Add nodes correlating to the "end" part
         public void addEndNode(NDFA ndfa, String endString){
             ArrayList<Node> nodesToAdd = new ArrayList<>();
             Node initialStartNode = new Node(endString.charAt(0));

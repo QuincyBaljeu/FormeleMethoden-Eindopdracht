@@ -65,6 +65,7 @@ public class Application {
                     } else {
                         NDFA convertedAutomata = automataMap.get(userInput);
 
+                        //Remove regex characters from alphabet, does not work :(
                         String alphabet = userInput;
                         alphabet.replace("^", "");
                         alphabet.replace("/", "");
