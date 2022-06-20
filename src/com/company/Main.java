@@ -12,8 +12,8 @@ public class Main {
 
         application.run();
 
-        //application.getRegexMap().put("/oxa/", "BEvat oxa groep");
-        //application.getPrescription("dioxaspul");
+        //application.getTestData();
+        //application.getPrescription("dioxazepam");
 
         //NDFA ndfaTest = converter.convertToNDFA("^benzyl/pent/$end");
         //ndfaTest.convertToDFA("abc");

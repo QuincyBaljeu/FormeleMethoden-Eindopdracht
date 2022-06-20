@@ -51,12 +51,12 @@ public class Application {
                     if (!automataMap.containsKey(userInput)){
                         System.out.println("No NDFA found");
                     } else {
-                        System.out.println("What string?");
-                        String stringToCheck = scanner.nextLine();
-
-                        if(!stringToCheck.isEmpty()){
-                            System.out.println("Result of automata is: " + automataMap.get(userInput).check(stringToCheck));
-                        }
+//                        System.out.println("What string?");
+//                        String stringToCheck = scanner.nextLine();
+//
+//                        if(!stringToCheck.isEmpty()){
+//                            System.out.println("Result of automata is: " + automataMap.get(userInput).check(stringToCheck));
+//                        }
                         automataMap.get(userInput).print();
                     }
                     break;
@@ -79,8 +79,14 @@ public class Application {
                         alphabet.replace("$", "");
 
                         convertedAutomata.convertToDFA(alphabet);
-                        convertedAutomata.print();
 
+//                        System.out.println("What string?");
+//                        String stringToCheck = scanner.nextLine();
+//
+//                        if(!stringToCheck.isEmpty()){
+//                            System.out.println("Result of automata is: " + convertedAutomata.check(stringToCheck));
+//                        }
+                        convertedAutomata.print();
 
                     }
 
@@ -92,13 +98,15 @@ public class Application {
         }
     }
 
+    //set to private
     public String getPrescription(String medicine){
         String prescription = "Prescription for: " + medicine + "\n";
 
         for (String regex : regexMap.keySet()){
             Pattern regexPattern = Pattern.compile(regex);
-            Matcher matcher = regexPattern.matcher(regex);
+            Matcher matcher = regexPattern.matcher(medicine);
             boolean regexMatch = matcher.find();
+
             if(regexMatch){
                 prescription += regexMap.get(regex) + "\n";
             }
@@ -108,10 +116,18 @@ public class Application {
     }
 
 
-    private void getTestData(){
+    //set to private
+    public void getTestData(){
         regexMap.put("zepam$", "Dit middel bevat een benzodiazepine \n" +
                 "Dit middel kan spierontspannend/rustgevend werken \n" +
                 "Dit middel kan verslavend zijn");
+        automataMap.put("zepam$", converter.convertToNDFA("$zepam"));
+
+        regexMap.put("^benzyl", "Dit middel bevat een benzyl groep");
+        automataMap.put("^benzyl", converter.convertToNDFA("^benzyl"));
+
+        regexMap.put("/oxa/", "Dit middel bevat een oxa groep");
+        automataMap.put("/oxa/", converter.convertToNDFA("/oxa/"));
         System.out.println("test data added");
     }
 
