@@ -28,7 +28,7 @@ public class Application {
                 case "1" :
                     System.out.println("Enter medicine");
                     String inputMedicine = scanner.nextLine();
-                    String prescriptionString = getPrescription(inputMedicine);
+                    String prescriptionString = getPrescriptionAlt(inputMedicine);
                     System.out.println(prescriptionString);
                     break;
                 case "2" :
@@ -114,6 +114,35 @@ public class Application {
 
         return prescription;
     }
+
+    private String getPrescriptionAlt(String medicine){
+        String prescription = "Prescription for: " + medicine + "\n";
+
+        for(String regex : regexMap.keySet()){
+            String sequence = "";
+            if(regex.contains("^")){
+                sequence = regex.replace("^", "");
+                if(medicine.startsWith(sequence)){
+                    prescription+= regexMap.get(regex) + "\n";
+                }
+            } else if (regex.contains("/")){
+                sequence = regex.replace("/", "");
+                if (medicine.contains(sequence)){
+                    prescription+=regexMap.get(regex) + "\n";
+                }
+            } else if(regex.contains("$")){
+                sequence = regex.replace("$", "");
+                if (medicine.endsWith(sequence)){
+                    prescription += regexMap.get(regex) + "\n";
+                }
+            }
+        }
+
+        return prescription;
+    }
+
+
+
 
 
     //set to private
