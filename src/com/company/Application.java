@@ -5,6 +5,7 @@ import com.company.automata.NDFA;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Application {
@@ -50,6 +51,12 @@ public class Application {
                     if (!automataMap.containsKey(userInput)){
                         System.out.println("No NDFA found");
                     } else {
+                        System.out.println("What string?");
+                        String stringToCheck = scanner.nextLine();
+
+                        if(!stringToCheck.isEmpty()){
+                            System.out.println("Result of automata is: " + automataMap.get(userInput).check(stringToCheck));
+                        }
                         automataMap.get(userInput).print();
                     }
                     break;
@@ -73,6 +80,8 @@ public class Application {
 
                         convertedAutomata.convertToDFA(alphabet);
                         convertedAutomata.print();
+
+
                     }
 
                     break;
@@ -83,12 +92,14 @@ public class Application {
         }
     }
 
-    private String getPrescription(String medicine){
+    public String getPrescription(String medicine){
         String prescription = "Prescription for: " + medicine + "\n";
 
         for (String regex : regexMap.keySet()){
             Pattern regexPattern = Pattern.compile(regex);
-            if(regexPattern.matcher(medicine).find()){
+            Matcher matcher = regexPattern.matcher(regex);
+            boolean regexMatch = matcher.find();
+            if(regexMatch){
                 prescription += regexMap.get(regex) + "\n";
             }
         }
@@ -102,5 +113,9 @@ public class Application {
                 "Dit middel kan spierontspannend/rustgevend werken \n" +
                 "Dit middel kan verslavend zijn");
         System.out.println("test data added");
+    }
+
+    public HashMap<String, String> getRegexMap() {
+        return regexMap;
     }
 }

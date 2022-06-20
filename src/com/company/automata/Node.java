@@ -70,7 +70,7 @@ public class Node {
 
         public void print(){
                 System.out.println("This node accepts :" + charToAccept + "\n"
-                                + "This node is a stop node? " + isStopNode);
+                                + "This node is a stop node? " + isStopNode );
                 for (Node transition : transitions){
                         System.out.print("This node has transition: " + transition.getCharToAccept() + "\n");
                 }
