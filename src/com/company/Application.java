@@ -147,16 +147,56 @@ public class Application {
 
     //set to private
     public void getTestData(){
-        regexMap.put("zepam$", "Dit middel bevat een benzodiazepine \n" +
-                "Dit middel kan spierontspannend/rustgevend werken \n" +
-                "Dit middel kan verslavend zijn");
-        automataMap.put("zepam$", converter.convertToNDFA("$zepam"));
 
-        regexMap.put("^benzyl", "Dit middel bevat een benzyl groep");
+        //prefixes
+        regexMap.put("^benzyl", "Dit middel bevat een benzyl groep \n" +
+                "Een benzylgroep kan gebruikt worden voor het beschermen van een binding \n" +
+                "of deze juist open te stellen om te reageren met een andere stof");
         automataMap.put("^benzyl", converter.convertToNDFA("^benzyl"));
 
-        regexMap.put("/oxa/", "Dit middel bevat een oxa groep");
-        automataMap.put("/oxa/", converter.convertToNDFA("/oxa/"));
+        regexMap.put("^methyl", "Dit middel bevat een methyl groep \n" +
+                "Een methylgroep kan gebruikt worden om er voor te zorgen dat een stof beter oplost in organisch middel \n");
+        automataMap.put("^methyl", converter.convertToNDFA("^methyl"));
+
+        regexMap.put("^fenyl", "Dit middel bevat een fenyl groep \n" +
+                "Een fenylgroep kan gebruikt worden om een binding met een andere stof te laten reageren\n");
+        automataMap.put("^fenyl", converter.convertToNDFA("^fenyl"));
+
+        //tussen fixes
+        regexMap.put("/mono/", "Dit middel bevat 1 van de hierna genoemde groepen");
+        automataMap.put("/mono/", converter.convertToNDFA("/mono/"));
+
+        regexMap.put("/di/", "Dit middel bevat 2 van de hierna genoemde groepen");
+        automataMap.put("/di/", converter.convertToNDFA("/di/"));
+
+        regexMap.put("/tri/", "Dit middel bevat 3 van de hierna genoemde groepen");
+        automataMap.put("tri", converter.convertToNDFA("/tri/"));
+
+                //postfixes
+        regexMap.put("zepam$", "Dit middel bevat een benzodiazepine \n" +
+                "Dit middel is een pschytroop middel \n" +
+                "Dit middel kan verslavend zijn \n" +
+                "Mogelijke bijwerkingen: \n Slaperigheid, afname in concentratie, geheugenverlies");
+        automataMap.put("zepam$", converter.convertToNDFA("$zepam"));
+
+        regexMap.put("illine$", "Dit middel bevat penicilline \n" +
+                "Dit middel is een antibacterieel middel \n +" +
+                "Mogelijke bijwerkingen: Huiduitslag, jeuk, maag-darmklachten");
+        automataMap.put("illine$", converter.convertToNDFA("$illine"));
+
+        regexMap.put("mycine$", "Dit middel bevat een macrolide \n" +
+                "Dit middel is een antibiotica, dit middle kan gebruikt worden voor infecties" +
+                "Mogelijke bijwerkingen: Maag-darmklachten, duizeligheid");
+        automataMap.put("mycine$", converter.convertToNDFA("$mycine"));
+
+        regexMap.put("caine$", "Dit middel is een anaesthesia \n" +
+                "Dit middel kan gebruikt worden voor plaatselijke verdovingen \n" +
+                "Dit middel mag niet gebruikt worden indien er gebreken zijn bij het bloedvolume of zuurstofgehalte \n" +
+                "Dit middel kan invloed hebben op rijvaardigheid \n" +
+                "Mogelijke bijwerkingen: Misselijkheid of braken, plaatselijke pijn");
+        automataMap.put("caine$", converter.convertToNDFA("$caine"));
+
+
         System.out.println("test data added");
     }
 

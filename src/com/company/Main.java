@@ -10,14 +10,14 @@ public class Main {
         Application application = new Application();
         RegexConverter converter = new RegexConverter();
 
-        //application.run();
+        application.run();
 
         //application.getTestData();
         //application.getPrescription("dioxazepam");
 
-        NDFA ndfaTest = converter.convertToNDFA("^aab$cd");
-        ndfaTest.convertToDFA("abcd");
-        System.out.println(ndfaTest.toString());
+        //NDFA ndfaTest = converter.convertToNDFA("^aab$cd");
+        //ndfaTest.convertToDFA("abcd");
+        //System.out.println(ndfaTest.toString());
         //System.out.println(ndfaTest.check("benzylpentend"));
     }
 }
