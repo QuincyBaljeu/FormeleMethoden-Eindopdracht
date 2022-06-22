@@ -49,7 +49,13 @@ public class RegexConverter {
         }if (contains != ""){
             addContainsNodes(ndfaToReturn, contains);
         }if (endsWith != ""){
-            addEndNode(ndfaToReturn, endsWith);
+            addEndNodes(ndfaToReturn, endsWith);
+        }
+
+        int i = 0;
+        for (Node node : ndfaToReturn.getAutomata()){
+            node.setNodeIndex(i);
+            i++;
         }
             return ndfaToReturn;
         }
@@ -58,11 +64,13 @@ public class RegexConverter {
         public void addStartNodes(NDFA ndfa, String startString){
         ArrayList<Node> nodesToAdd = new ArrayList<>();
         Node initialStartNode = new Node(startString.charAt(0));
+        initialStartNode.setBeginsWithNode(true);
         nodesToAdd.add(initialStartNode);
 
         //starts at one to compensate for manual adding of first node
         for (int i = 1; i < startString.length(); i++){
             Node newNode = new Node(startString.charAt(i));
+            newNode.setBeginsWithNode(true);
             //System.out.println(newNode.toString());
             nodesToAdd.get(i - 1).addTransition(newNode);
             if(i == startString.length() - 1){
@@ -101,7 +109,7 @@ public class RegexConverter {
         }
 
         //Add nodes correlating to the "end" part
-        public void addEndNode(NDFA ndfa, String endString){
+        public void addEndNodes(NDFA ndfa, String endString){
             ArrayList<Node> nodesToAdd = new ArrayList<>();
             Node initialStartNode = new Node(endString.charAt(0));
             initialStartNode.addTransition(initialStartNode);
@@ -121,6 +129,8 @@ public class RegexConverter {
             ndfa.getAutomata().addAll(nodesToAdd);
             ndfa.resetStopNode();
         }
+
+
     }
 
 

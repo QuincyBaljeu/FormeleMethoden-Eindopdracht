@@ -15,8 +15,8 @@ public class Main {
         //application.getTestData();
         //application.getPrescription("dioxazepam");
 
-        //NDFA ndfaTest = converter.convertToNDFA("^benzyl/pent/$end");
-        //ndfaTest.convertToDFA("abc");
+        //NDFA ndfaTest = converter.convertToNDFA("^aab$cd");
+        //ndfaTest.convertToDFA("abcd");
         //System.out.println(ndfaTest.toString());
         //System.out.println(ndfaTest.check("benzylpentend"));
     }

@@ -7,6 +7,7 @@ public class NDFA {
     private List<Node> automata = new LinkedList<>();
     private Node initialNode;
     private boolean isDFA;
+    private boolean containsStartNodes;
 
     public NDFA(Node initialNode){
         this.initialNode = initialNode;
@@ -91,20 +92,43 @@ public class NDFA {
 
     //Convert NDFA to DFA
     public void convertToDFA(String alphabet){
-
-        //Add "fuik" node for eacht char in alphabet not used
-        for (char fuikChar : alphabet.toCharArray()) {
-
-            Node fuikNode = new Node(fuikChar);
-            fuikNode.addTransition(fuikNode);
-
-            for (Node node : this.automata) {
-                if (!node.containsTransition(fuikChar)) {
-                    node.addTransition(fuikNode);
+        Node firstEndsWithNode = automata.get(getIndexOfLastBeginsWithNode());
+        for(Node node : automata){
+            //If node is part of "Begins with" automata. Transition to fuik node
+            if(node.isBeginsWithNode() && !node.isStopNode()){
+                //Add transition to fuik node for every char in alphabet
+                for (char charToAdd : alphabet.toCharArray()){
+                    if (!node.containsTransition(charToAdd)){
+                        Node newNode = new Node(charToAdd);
+                        newNode.addTransition(newNode);
+                        node.addTransition(newNode);
+                    }
                 }
+            } else {
+
+                for(char charToAdd : alphabet.toCharArray()){
+                    if(!node.containsTransition(charToAdd)){
+                        Node newNode = new Node(charToAdd);
+                        newNode.addTransition(firstEndsWithNode);
+                        node.addTransition(newNode);
+                    }
+                }
+
             }
         }
+
+
         this.isDFA = true;
+    }
+
+    private int getIndexOfLastBeginsWithNode(){
+        int lastIndex = 0;
+      for (int i =0; i < automata.size(); i++){
+          if(!automata.get(i).isBeginsWithNode()){
+              lastIndex = i;
+          }
+      }
+      return lastIndex;
     }
 
     public void print(){

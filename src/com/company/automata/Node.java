@@ -8,6 +8,8 @@ public class Node {
         private char charToAccept;
         private boolean isStopNode;
         private List<Node> transitions = new ArrayList<>();
+        private boolean isBeginsWithNode;
+        private int nodeIndex;
 
         public Node(char charToAccept, List<Node> transitions, boolean isStopNode) {
                 this.charToAccept = charToAccept;
@@ -46,6 +48,26 @@ public class Node {
                 this.isStopNode = stopNode;
         }
 
+        public void setBeginsWithNode(boolean beginsWithNode) {
+                isBeginsWithNode = beginsWithNode;
+        }
+
+        public void setCharToAccept(char charToAccept) {
+                this.charToAccept = charToAccept;
+        }
+
+        public int getNodeIndex() {
+                return nodeIndex;
+        }
+
+        public void setNodeIndex(int nodeIndex) {
+                this.nodeIndex = nodeIndex;
+        }
+
+        public boolean isBeginsWithNode() {
+                return isBeginsWithNode;
+        }
+
         @Override
         public String toString() {
                 return "NDFANode{" +
@@ -72,7 +94,7 @@ public class Node {
                 System.out.println("This node accepts :" + charToAccept + "\n"
                                 + "This node is a stop node? " + isStopNode );
                 for (Node transition : transitions){
-                        System.out.print("This node has transition: " + transition.getCharToAccept() + "\n");
+                        System.out.print("This node has transition: " + transition.getCharToAccept() + " -> state: "+ transition.getNodeIndex() + "\n");
                 }
         }
 

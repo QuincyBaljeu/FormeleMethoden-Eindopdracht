@@ -3,7 +3,6 @@ package test;
 import com.company.RegexConverter;
 import com.company.automata.NDFA;
 import com.company.automata.Node;
-import com.sun.org.apache.regexp.internal.RE;
 import org.junit.jupiter.api.Test;
 
 
@@ -39,7 +38,7 @@ class RegexConverterTest {
         NDFA testNdfa = new NDFA();
 
         RegexConverter converter = new RegexConverter();
-        converter.addEndNode(testNdfa, "abbc");
+        converter.addEndNodes(testNdfa, "abbc");
 
         assertEquals(testNdfa.getAutomata().size(), 4);
     }
@@ -51,7 +50,7 @@ class RegexConverterTest {
 
         RegexConverter converter = new RegexConverter();
         converter.addStartNodes(testNdfa, "abb");
-        converter.addEndNode(testNdfa, "ccd");
+        converter.addEndNodes(testNdfa, "ccd");
 
         //Get last node and check if it is true
         assertTrue(testNdfa.getAutomata().get(testNdfa.getAutomata().size()-1).isStopNode());
@@ -65,7 +64,7 @@ class RegexConverterTest {
         RegexConverter converter = new RegexConverter();
 
         converter.addStartNodes(testNdfa, "ab");
-        converter.addEndNode(testNdfa, "cd");
+        converter.addEndNodes(testNdfa, "cd");
 
         testNdfa.convertToDFA("abcde");
 
@@ -117,7 +116,7 @@ class RegexConverterTest {
         NDFA testNdfa = new NDFA();
         RegexConverter regexConverter = new RegexConverter();
 
-        regexConverter.addEndNode(testNdfa, "ab");
+        regexConverter.addEndNodes(testNdfa, "ab");
 
         assertTrue(testNdfa.getAutomata().get(0).containsTransition('a'));
     }
