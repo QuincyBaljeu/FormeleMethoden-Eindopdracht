@@ -6,8 +6,8 @@ import java.util.List;
 public class NDFA {
     private List<Node> automata = new LinkedList<>();
     private Node initialNode;
+    private String regex;
     private boolean isDFA;
-    private boolean containsStartNodes;
 
     public NDFA(Node initialNode){
         this.initialNode = initialNode;
@@ -38,6 +38,14 @@ public class NDFA {
         this.initialNode = initialNode;
     }
 
+    public String getRegex() {
+        return regex;
+    }
+
+    public void setRegex(String regex) {
+        this.regex = regex;
+    }
+
     @Override
     public String toString() {
         return "NDFA{" +
@@ -57,7 +65,7 @@ public class NDFA {
         }
 
         //Chek rest of nodes
-        for(int i = 1; i < stringToCheck.length(); i++){
+        for(int i = 0; i < stringToCheck.length(); i++){
             for(Node transition : automata.get(automataIterator).getTransitions()){
                 //If node is stopnode, automata has reached its end
                 if(transition.isStopNode()){
@@ -66,6 +74,27 @@ public class NDFA {
                 if(stringToCheck.charAt(i) == transition.getCharToAccept()){
                         automataIterator++;
                 }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkAlt(String stringToCheck){
+        String sequence = "";
+        if(regex.contains("^")){
+            sequence = regex.replace("^", "");
+            if(stringToCheck.startsWith(sequence)){
+                return true;
+            }
+        } else if (regex.contains("/")){
+            sequence = regex.replace("/", "");
+            if (stringToCheck.contains(sequence)){
+                return true;
+            }
+        } else if(regex.contains("$")){
+            sequence = regex.replace("$", "");
+            if (stringToCheck.endsWith(sequence)){
+                return true;
             }
         }
         return false;
@@ -105,7 +134,6 @@ public class NDFA {
                     }
                 }
             } else {
-
                 for(char charToAdd : alphabet.toCharArray()){
                     if(!node.containsTransition(charToAdd)){
                         Node newNode = new Node(charToAdd);

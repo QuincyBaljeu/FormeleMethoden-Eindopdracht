@@ -74,9 +74,9 @@ public class Application {
 
                         //Remove regex characters from alphabet, does not work :(
                         String alphabet = userInput;
-                        alphabet.replace("^", "");
-                        alphabet.replace("/", "");
-                        alphabet.replace("$", "");
+                        alphabet = alphabet.replace("^", "");
+                        alphabet = alphabet.replace("/", "");
+                        alphabet = alphabet.replace("$", "");
 
                         convertedAutomata.convertToDFA(alphabet);
 
@@ -140,10 +140,6 @@ public class Application {
 
         return prescription;
     }
-
-
-
-
 
     //set to private
     public void getTestData(){

@@ -57,6 +57,7 @@ public class RegexConverter {
             node.setNodeIndex(i);
             i++;
         }
+            ndfaToReturn.setRegex(regex);
             return ndfaToReturn;
         }
 
@@ -114,6 +115,15 @@ public class RegexConverter {
             Node initialStartNode = new Node(endString.charAt(0));
             initialStartNode.addTransition(initialStartNode);
             nodesToAdd.add(initialStartNode);
+
+            //add transition for eacht letter of alphabet
+            for(char c : endString.toCharArray()){
+                if(!initialStartNode.containsTransition(c)){
+                    Node loopNode = new Node(c);
+                    loopNode.addTransition(initialStartNode);
+                    initialStartNode.addTransition(loopNode);
+                }
+            }
 
             if(!ndfa.getAutomata().isEmpty()){
                 ndfa.getAutomata().get(ndfa.getAutomata().size()-1).addTransition(initialStartNode);

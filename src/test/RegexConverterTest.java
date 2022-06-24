@@ -120,4 +120,107 @@ class RegexConverterTest {
 
         assertTrue(testNdfa.getAutomata().get(0).containsTransition('a'));
     }
+
+    //test if ndfa "Begins with" works correctly
+    @Test
+    void ndfaBeginsWithCheck(){
+
+        NDFA testNdfa;
+        RegexConverter converter = new RegexConverter();
+
+        testNdfa = converter.convertToNDFA("^aab");
+
+        assertTrue(testNdfa.checkAlt("aabcd"));
+    }
+
+    //test if ndfa "ends with" works correctly
+    @Test
+    void ndfaEndsWithCheck(){
+
+        NDFA testNdfa;
+        RegexConverter converter = new RegexConverter();
+
+        testNdfa = converter.convertToNDFA("$ba");
+        //testNdfa.convertToDFA("abcd");
+        assertTrue(testNdfa.checkAlt("aaba"));
+    }
+
+    //check if dfa "begins with" works correctly
+    @Test
+    void dfaBeginsWithCheck(){
+        NDFA testDfa;
+
+        RegexConverter converter = new RegexConverter();
+        testDfa = converter.convertToNDFA("^abca");
+        testDfa.convertToDFA("abc");
+
+        assertTrue(testDfa.checkAlt("abcaab"));
+    }
+
+    //check if dfa "ends with" works correctly
+    @Test
+    void dfaEndsWithCheck(){
+        NDFA testDfa;
+
+        RegexConverter converter = new RegexConverter();
+        testDfa = converter.convertToNDFA("$cd");
+        testDfa.convertToDFA("abcd");
+
+        assertTrue(testDfa.checkAlt("abcabcd"));
+    }
+
+
+    //Check if dfa adds transition for each char in alphabet
+    @Test
+    void dfaAllTransitions(){
+        NDFA testDfa;
+        String alphabet = "abcd";
+
+        RegexConverter converter = new RegexConverter();
+        testDfa = converter.convertToNDFA("^abcd");
+        testDfa.convertToDFA(alphabet);
+
+        for(Node node : testDfa.getAutomata()){
+            for (Node transition : node.getTransitions()){
+
+                alphabet = alphabet.replace(String.valueOf(transition.getCharToAccept()), "");
+            }
+        }
+
+        assertTrue(alphabet.isEmpty());
+    }
+
+
+    //Check if Dfa has a single transition of each char in alphabet
+    @Test
+    void dfaAllTransitionsSingular(){
+        NDFA testDfa;
+        String alphabet = "abcd";
+
+        RegexConverter converter = new RegexConverter();
+        testDfa = converter.convertToNDFA("^abcd");
+        testDfa.convertToDFA(alphabet);
+
+        boolean transitionCheck = true;
+
+        for (char c : alphabet.toCharArray()){
+
+            for (Node node : testDfa.getAutomata()){
+
+                int transitionCounter = 0;
+                for (Node transition: node.getTransitions()){
+                    if(transition.getCharToAccept() == c){
+                        transitionCounter++;
+                    }
+
+                }
+                if(transitionCounter > 1){
+                    transitionCheck = false;
+                }
+            }
+        }
+
+        assertTrue(transitionCheck);
+
+    }
 }
